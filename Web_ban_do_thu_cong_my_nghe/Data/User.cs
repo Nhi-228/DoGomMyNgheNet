@@ -20,6 +20,11 @@ public partial class User
     public string? Role { get; set; }
 
     public DateTime? CreatedAt { get; set; }
-
+    public string RandomKey { get; set; }
+    public bool Status { get; set; }
+    public string? Hinh { get; set; }
+    public string? Gender { get; set; }
+    public string? TenDangNhap { get; set; }
+    public DateTime? NgaySinh { get; set; }
     public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
 }

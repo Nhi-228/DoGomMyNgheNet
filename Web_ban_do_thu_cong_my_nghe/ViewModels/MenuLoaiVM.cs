@@ -2,8 +2,8 @@
 {
     public class MenuLoaiVM
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public int ProductCount { get; set; }
+        public int Id { get; set; } //mã loại
+        public string Name { get; set; } // tên loại
+        public int ProductCount { get; set; } // số lượng
     }
 }

@@ -1,4 +1,4 @@
-﻿using System;
+﻿
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
@@ -25,9 +25,13 @@ public partial class MynghevietDbContext : DbContext
 
     public virtual DbSet<User> Users { get; set; }
 
-//    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-//        => optionsBuilder.UseSqlServer("Data Source=(localdb)\\mssqllocaldb;Initial Catalog=myngheviet_db;Integrated Security=True;Trust Server Certificate=True");
+    public DbSet<NhanVien> NhanViens { get; set; }
+
+
+
+    //    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
+    //        => optionsBuilder.UseSqlServer("Data Source=(localdb)\\mssqllocaldb;Initial Catalog=myngheviet_db;Integrated Security=True;Trust Server Certificate=True");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -170,6 +174,19 @@ public partial class MynghevietDbContext : DbContext
                 .HasMaxLength(20)
                 .HasDefaultValue("customer")
                 .HasColumnName("role");
+            entity.Property(e => e.Gender)
+                .HasMaxLength(10)
+                .HasColumnName("gender");
+
+            entity.Property(e => e.Status).HasColumnName("status");
+
+            entity.Property(e => e.Hinh)
+                .HasMaxLength(255)
+                .HasColumnName("Hinh");
+
+            entity.Property(e => e.RandomKey).HasColumnName("RandomKey");
+
+            entity.Property(e => e.TenDangNhap).HasColumnName("TenDangNhap");
         });
 
         OnModelCreatingPartial(modelBuilder);

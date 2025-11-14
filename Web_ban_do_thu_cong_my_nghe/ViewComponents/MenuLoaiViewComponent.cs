@@ -13,10 +13,11 @@ namespace Web_ban_do_thu_cong_my_nghe.ViewComponents
 
         public IViewComponentResult Invoke()
         {
-            var data = db.Categories.Select(c => new MenuLoaiVM { 
-                Name = c.Name, 
-                Id = c.Id, 
-                ProductCount = c.Products.Count }).OrderBy(p => p.Name);
+            var data = db.Categories.Select(lo => new MenuLoaiVM { 
+                Name = lo.Name, 
+                Id = lo.Id, 
+                ProductCount = lo.Products.Count 
+            }).OrderBy(p => p.Name);
             return View(data);
         }
     }    

@@ -1,5 +1,7 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using Web_ban_do_thu_cong_my_nghe.Data;
+using Web_ban_do_thu_cong_my_nghe.Helpers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +10,20 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<MynghevietDbContext>(options => {
     options.UseSqlServer(builder.Configuration.GetConnectionString("myngheviet_db"));
 });
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
+builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/KhachHang/DangNhap";
+        options.AccessDeniedPath = "/AccessDenied";
+    });
 
 var app = builder.Build();
 
@@ -23,8 +39,15 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+app.UseSession();
 
+app.UseAuthentication();
 app.UseAuthorization();
+
+app.MapControllerRoute(
+    name: "admin",
+    pattern: "Admin/{action=Login}/{id?}",
+    defaults: new { controller = "Admin" });
 
 app.MapControllerRoute(
     name: "default",
